@@ -33,3 +33,8 @@ Route::post('/listarMedicos', [MedicosController::class, 'listarMedicos']);
 
 Route::post('/listarMedicos', [MedicosController::class, 'listarMedicos']);
 Route::get('/perfil-medico/{id}', [MedicosController::class, 'perfilMedico'])->name('perfil-medico');
+
+
+//nuevo
+
+

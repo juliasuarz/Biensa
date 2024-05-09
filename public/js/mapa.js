@@ -60,7 +60,22 @@ function getMarkers() {
                                 var latitud = parseFloat(coordenadas[0]);
                                 var longitud = parseFloat(coordenadas[1]);
                                 if (!isNaN(latitud) && !isNaN(longitud)) {
-                                    L.marker([latitud, longitud]).addTo(map).bindPopup(markerData.nombre);
+                                    // Decodifica la URL de la imagen
+                                    var imagenUrl = decodeURIComponent(markerData.imagen);
+
+                                    // Crea el contenido del popup con el nombre y la imagen
+                                    var popupContent = '<div>' +
+                                                        '<h3>' + markerData.nombre + '</h3>' +
+                                                        '<img src="' + imagenUrl + '" width="100">' +
+                                                        '</div>';
+
+                                    // Agrega el marcador al mapa
+                                    var marker = L.marker([latitud, longitud]);
+
+                                    // Cuando el mapa esté listo, abre el popup
+                                    map.whenReady(function() {
+                                        marker.addTo(map).bindPopup(popupContent).openPopup();
+                                    });
                                 } else {
                                     console.error("Coordenadas inválidas:", coordenadas);
                                 }
@@ -94,3 +109,49 @@ function getMarkers() {
         alert("Se produjo un error al obtener los marcadores. Por favor, inténtelo de nuevo más tarde.");
     }
 }
+
+listarmapa();
+
+function listarmapa() {
+    var resultado = document.getElementById('listado-mapa');
+   
+    var formdata = new FormData();
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    formdata.append('_token', csrfToken);
+
+    var ajax = new XMLHttpRequest();
+
+    ajax.open('POST', '/mostrar-marcadores');
+
+    ajax.onload = function () {
+
+        var str="";
+
+        if (ajax.status == 200) {
+
+            var json = JSON.parse(ajax.responseText);
+            
+            str+="<div class='row'>";
+            
+            json.forEach(function(mapa) {
+                str+="<div class='col'>";
+                str+="<h3>" + mapa.nombre + "</h3>";
+                str+="<img src= " + mapa.imagen + "width='100'></img>";
+                // str += "<button class='btn-editar' onclick='irAChat(" + medico.id + ")'>Chatear</button>";
+                // str += "<button class='btn-editar' onclick='irAMedicoPerfil(" + medico.id + ")'>Ver Perfil</button>";
+                str+="</div>";
+
+            });
+            str+="</div>";
+
+            resultado.innerHTML = str;
+
+        } else {
+            resultado.innerText = 'Error';
+        }
+    }
+    ajax.send(formdata);
+}
+

@@ -18,6 +18,9 @@
 <body>
     <div id="map"></div>
 
+    <div id="listado-mapa"></div>
+
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.js"></script>
     {{-- <script src="{{ asset('js/marcadores.js') }}"></script> --}}
