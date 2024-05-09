@@ -33,16 +33,17 @@ class MapaSeeder extends Seeder
             ["ubicacion" => "Centre de Salut Mental Dr. Fàbregas", "coordenadas" => "41.4380, 2.2041", "nombre" => "Centre de Salut Mental Dr. Fàbregas"],
             ["ubicacion" => "Institut Guttmann - Servei de Psiquiatria", "coordenadas" => "41.4001, 2.1055", "nombre" => "Institut Guttmann - Servei de Psiquiatria"],
             ["ubicacion" => "Fundació Salut i Comunitat", "coordenadas" => "41.3713, 2.1342", "nombre" => "Fundació Salut i Comunitat"],
-            ["ubicacion" => "Centre de Salut Mental de Nou Barris", "coordenadas" => "41.4452, 2.1790", "nombre" => "Centre de Salut Mental de Nou Barris"],
             ["ubicacion" => "Centre de Salut Mental d'Horta", "coordenadas" => "41.4323, 2.1457", "nombre" => "Centre de Salut Mental d'Horta"],
         ];
+
+        $imagen = "https://www.shutterstock.com/image-vector/medical-concept-hospital-building-doctor-260nw-588196298.jpg";
 
         foreach ($barcelona_mental_health_centers as $location) {
             DB::table('mapa')->insert([
                 'ubicacion' => $location['ubicacion'],
                 'coordenadas' => $location['coordenadas'],
-                'nombre' => $location['nombre']
-                // La imagen se deja como NULL
+                'nombre' => $location['nombre'],
+                'imagen' => $imagen
             ]);
         }
     }

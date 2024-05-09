@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\MedicosController;
+use App\Http\Controllers\EventoController;
+
+use App\Http\Controllers\NoticiaController;
+
 
 
 
@@ -37,4 +41,14 @@ Route::get('/perfil-medico/{id}', [MedicosController::class, 'perfilMedico'])->n
 
 //nuevo
 
+
+Route::get('/listar-eventos', function () {return view('recursos/eventos');})->middleware('auth')->name('eventos');
+Route::post('/listarEventos', [EventoController::class, 'listarEventos']); // Ruta para listar eventos
+Route::get('/evento/{id}', [EventoController::class, 'evento'])->name('evento');
+
+
+//nuevo 
+Route::get('/listar-noticias', function () {return view('recursos/listar-noticias');})->middleware('auth')->name('noticias');
+Route::post('/listarNoticias', [NoticiaController::class, 'listarNoticias']); // Ruta para listar eventos
+Route::get('/noticia/{id}', [NoticiaController::class, 'noticia'])->name('noticia');
 

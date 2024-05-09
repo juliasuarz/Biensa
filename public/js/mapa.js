@@ -130,27 +130,28 @@ function listarmapa() {
         var str="";
 
         if (ajax.status == 200) {
-
             var json = JSON.parse(ajax.responseText);
-            
-            str+="<div class='row'>";
-            
+            var str = "<div class='row'>";
+        
             json.forEach(function(mapa) {
-                str+="<div class='col'>";
-                str+="<h3>" + mapa.nombre + "</h3>";
-                str+="<img src= " + mapa.imagen + "width='100'></img>";
+                str += "<div class='col'>";
+                str += "<h3>" + mapa.nombre + "</h3>";
+                
+                // Decodificar la URL de la imagen
+                var decodedUrl = decodeURIComponent(mapa.imagen);
+                
+                str += "<img src='" + decodedUrl + "' width='100'></img>";
                 // str += "<button class='btn-editar' onclick='irAChat(" + medico.id + ")'>Chatear</button>";
                 // str += "<button class='btn-editar' onclick='irAMedicoPerfil(" + medico.id + ")'>Ver Perfil</button>";
-                str+="</div>";
-
+                str += "</div>";
             });
-            str+="</div>";
-
+        
+            str += "</div>";
             resultado.innerHTML = str;
-
         } else {
             resultado.innerText = 'Error';
         }
+        
     }
     ajax.send(formdata);
 }
